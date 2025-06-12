@@ -1,0 +1,39 @@
+-- Notes de reviews moyennes par app
+SELECT app_name, AVG(review_score) FROM `play-market-462117.Play_Market.apps_info` AS ai
+JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
+GROUP BY app_name
+ORDER BY COUNT(review_score) DESC ;
+
+-- Notes de reviews moyennes par catégories
+SELECT categories, AVG(review_score) FROM `play-market-462117.Play_Market.apps_info` AS ai
+JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
+GROUP BY categories
+ORDER BY COUNT(review_score) DESC ;
+
+-- Nombre d'avis par app
+SELECT app_name, COUNT(review_score) FROM `play-market-462117.Play_Market.apps_info` AS ai
+JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
+GROUP BY app_name
+ORDER BY COUNT(review_score) DESC ;
+
+-- Evolution temporelle des notes d'avis
+SELECT app_name, review_date, review_score FROM `play-market-462117.Play_Market.apps_info` AS ai
+JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
+ORDER BY review_date DESC ;
+
+-- Notes d'avis moyennes des app dont les reviews parlent des pubs
+SELECT app_name, AVG(review_score) as avg_score FROM `play-market-462117.Play_Market.apps_info` AS ai
+JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
+WHERE review_text LIKE '%ads%'
+GROUP BY(app_name)
+ORDER BY(avg_score) DESC ;
+
+-- Notes d'avis suivant la longueur du commentaire
+SELECT app_name, LENGTH(review_text) as length_text, review_score FROM `play-market-462117.Play_Market.apps_reviews` AS ai
+JOIN `play-market-462117.Play_Market.apps_info` AS ar ON ai.app_id = ar.app_id
+ORDER BY(review_score) DESC ;
+
+-- Notes d'avis suivant le compteur d'utilité
+SELECT app_name, review_score, helpful_count FROM `play-market-462117.Play_Market.apps_reviews` AS ai
+JOIN `play-market-462117.Play_Market.apps_info` AS ar ON ai.app_id = ar.app_id
+ORDER BY(review_score) DESC ;
