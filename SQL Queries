@@ -16,7 +16,7 @@ JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_i
 GROUP BY app_name
 ORDER BY COUNT(review_score) DESC ;
 
--- Evolution temporelle des notes d'avis
+-- Evolution temporelle des notes
 SELECT app_name, review_date, review_score FROM `play-market-462117.Play_Market.apps_info` AS ai
 JOIN `play-market-462117.Play_Market.apps_reviews` AS ar ON ai.app_id = ar.app_id
 ORDER BY review_date DESC ;
